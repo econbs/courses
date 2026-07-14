@@ -15,7 +15,7 @@ courses/
     brand.css       shared stylesheet used by every course page
 ```
 
-Pages live at `https://econbs.github.io/courses/<course>/`.
+Pages live at `https://www.brandonsheridan.com/courses/<course>/`.
 
 ## Updating a course each semester
 
@@ -34,7 +34,7 @@ layout, styling) is shared and doesn't need to be touched.
 
 ## Linking from Canvas
 
-Add a link to `https://econbs.github.io/courses/<course>/index.html` from a
+Add a link to `https://www.brandonsheridan.com/courses/<course>/index.html` from a
 Canvas Page, Module, or the course navigation. Students click through to a
 normal web page — no Canvas admin permissions or iframe whitelisting
 required.

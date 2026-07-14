@@ -1,10 +1,10 @@
 /* ================================================================
    ECO 1000 — SHARED BRAND STYLESHEET (navy/blue variant)
-   econbs.github.io/courses/shared/brand.css
+   www.brandonsheridan.com/courses/shared/brand.css
 
    USAGE
    Add this to every course HTML file, before any page-specific styles:
-   <link rel="stylesheet" href="https://econbs.github.io/courses/shared/brand.css">
+   <link rel="stylesheet" href="https://www.brandonsheridan.com/courses/shared/brand.css">
    Page-specific styles go in a <style> block AFTER this import —
    they will override brand defaults where needed.
 ================================================================ */

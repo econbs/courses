@@ -1,6 +1,6 @@
 // ================================================================
 //  ECO 1000 — COURSE CONFIGURATION
-//  Hosted at: econbs.github.io/courses/eco1000/
+//  Hosted at: www.brandonsheridan.com/courses/eco1000/
 // ================================================================
 //  SEMESTER UPDATE CHECKLIST (search UPDATE to find each spot):
 //  1. COURSE block       — semester, canvasId (canvasId changes every term)
@@ -19,7 +19,7 @@ const COURSE = {
   semester:    "Fall 2026",                        // UPDATE each semester
   format:      "in-person",
   credits:     3,                                   // UPDATE if not 3
-  baseUrl:     "https://econbs.github.io/courses/eco1000",
+  baseUrl:     "https://www.brandonsheridan.com/courses/eco1000",
   canvasBase:  "https://elon.instructure.com",
   canvasId:    "1499",                              // UPDATE each semester
 };
