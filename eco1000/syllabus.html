@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+================================================================
+  ECO 1000 — SYLLABUS
+  Hosted: econbs.github.io/courses/eco1000/syllabus.html
+  Grading weights pull from config.js GRADING — edit there, not here.
+  Policy text below is placeholder — UPDATE with your actual syllabus language.
+================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syllabus · ECO 1000</title>
+  <link rel="stylesheet" href="https://econbs.github.io/courses/shared/brand.css">
+  <script src="config.js"></script>
+  <style>
+    .policy { background: var(--white); border-radius: var(--radius-card); box-shadow: var(--shadow); padding: 1.5rem 1.75rem; margin-bottom: 1.5rem; }
+    .policy h2 { font-size: 1rem; color: var(--primary); margin-bottom: 0.75rem; }
+    .policy p { font-size: 0.9rem; line-height: 1.7; color: var(--text); font-weight: 300; }
+    .grade-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+    .grade-table td { padding: 0.5rem 0; font-size: 0.9rem; border-bottom: 1px solid var(--warm-gray); }
+    .grade-table td:last-child { text-align: right; font-weight: 600; color: var(--primary); }
+    .placeholder { color: var(--muted); font-style: italic; }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header>
+  <div class="header-inner">
+    <a class="back-link" href="index.html" target="_top">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      Course Home
+    </a>
+    <p class="course-code" id="courseCode"></p>
+    <h1>Syllabus</h1>
+  </div>
+</header>
+
+<main id="main">
+  <div class="policy">
+    <h2>Grading Breakdown</h2>
+    <table class="grade-table" id="gradeTable"></table>
+  </div>
+
+  <div class="policy">
+    <h2>Course Policies</h2>
+    <p class="placeholder">UPDATE — paste your attendance, late work, and academic
+      integrity policies here.</p>
+  </div>
+
+  <div class="policy">
+    <h2>Contact</h2>
+    <p id="contactLine" class="placeholder"></p>
+  </div>
+</main>
+
+<footer>
+  <a id="canvasFooterLink" href="#" target="_top">Return to Canvas</a>
+</footer>
+
+<script>
+  const { course, instructor, grading, pages } = CONFIG;
+  document.getElementById('courseCode').textContent = `${course.code} · ${course.semester}`;
+
+  document.getElementById('gradeTable').innerHTML = grading.components.map(c => `
+    <tr><td>${c.label}</td><td>${c.weight}%</td></tr>
+  `).join('');
+
+  const contact = [instructor.name, instructor.email, instructor.officeHours]
+    .filter(Boolean).join(' · ');
+  document.getElementById('contactLine').textContent =
+    contact || 'UPDATE — instructor contact details in config.js';
+
+  document.getElementById('canvasFooterLink').href = pages.canvasHome;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+================================================================
+  ECO 1000 — COURSE HOME PAGE
+  Hosted: econbs.github.io/courses/eco1000/index.html
+  All dynamic content pulls from config.js — do not hardcode
+  semester, instructor, or grade information here.
+================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ECO 1000 Principles of Economics at Elon University — course home, syllabus, and schedule.">
+  <title>ECO 1000 · Principles of Economics</title>
+  <link rel="stylesheet" href="https://econbs.github.io/courses/shared/brand.css">
+  <script src="config.js"></script>
+  <script src="https://unpkg.com/lucide@0.469.0"></script>
+  <style>
+    .meta-value.empty { opacity: 0.5; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header>
+  <div class="header-inner">
+    <p class="course-code" id="courseCode"></p>
+    <h1 id="courseTitle"></h1>
+    <p class="header-meta" id="headerMeta"></p>
+    <div class="meta" id="metaBar"></div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="welcome">
+    <p class="welcome-label">Welcome</p>
+    <p>This is the course home page for ECO 1000. Everything here links back to
+      Canvas for anything gradable — this site is just the syllabus and schedule,
+      kept in one place and easy to update all semester.</p>
+  </div>
+
+  <div class="card-grid" id="cardGrid"></div>
+</main>
+
+<footer>
+  <a id="canvasFooterLink" href="#" target="_top">Return to Canvas</a>
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  const { course, instructor, pages, features } = CONFIG;
+
+  document.getElementById('courseCode').textContent = course.code;
+  document.getElementById('courseTitle').textContent = course.title;
+  document.getElementById('headerMeta').textContent =
+    `${course.semester} · ${course.format === 'in-person' ? 'In-person' : course.format} · ${course.credits} credits`;
+
+  const metaBar = document.getElementById('metaBar');
+  const metaItems = [
+    ['Instructor', instructor.nameShort || instructor.name],
+    ['Office Hours', instructor.officeHours],
+    ['Email', instructor.email ? `<a href="mailto:${instructor.email}">${instructor.email}</a>` : ''],
+  ];
+  metaBar.innerHTML = metaItems.map(([label, value]) => `
+    <div class="meta-item">
+      <span class="meta-label">${label}</span>
+      <span class="meta-value ${value ? '' : 'empty'}">${value || 'TBA'}</span>
+    </div>
+  `).join('');
+
+  const cards = [];
+  if (features.checklist) {
+    cards.push({
+      primary: true,
+      href: pages.checklist,
+      icon: 'calendar',
+      title: 'Weekly Schedule',
+      desc: 'Topics, readings, and what is due each week.',
+    });
+  }
+  if (features.syllabus) {
+    cards.push({
+      href: pages.syllabus,
+      icon: 'file-text',
+      title: 'Syllabus',
+      desc: 'Grading, policies, and course expectations.',
+    });
+  }
+  cards.push({
+    href: pages.canvasHome,
+    icon: 'log-in',
+    title: 'Canvas',
+    desc: 'Submit assignments, view grades, and post to discussions.',
+  });
+
+  const cardGrid = document.getElementById('cardGrid');
+  cardGrid.innerHTML = cards.map(c => `
+    <a class="card ${c.primary ? 'primary' : ''}" href="${c.href}" target="_top">
+      <div class="card-icon"><i data-lucide="${c.icon}"></i></div>
+      <div class="card-content">
+        <div class="card-title">${c.title}</div>
+        <div class="card-desc">${c.desc}</div>
+      </div>
+    </a>
+  `).join('');
+  lucide.createIcons();
+
+  document.getElementById('canvasFooterLink').href = pages.canvasHome;
+</script>
+
+</body>
+</html>

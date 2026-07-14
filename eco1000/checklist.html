@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+================================================================
+  ECO 1000 — WEEKLY SCHEDULE / CHECKLIST
+  Hosted: econbs.github.io/courses/eco1000/checklist.html
+  Reads SCHEDULE.weeks from config.js and auto-highlights the
+  current week based on today's date. Edit weeks in config.js.
+================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Schedule · ECO 1000</title>
+  <link rel="stylesheet" href="https://econbs.github.io/courses/shared/brand.css">
+  <script src="config.js"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header>
+  <div class="header-inner">
+    <a class="back-link" href="index.html" target="_top">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      Course Home
+    </a>
+    <p class="course-code" id="courseCode"></p>
+    <h1>Weekly Schedule</h1>
+  </div>
+</header>
+
+<main id="main">
+  <table class="schedule" id="scheduleTable">
+    <thead>
+      <tr><th>Week</th><th>Dates</th><th>Topic</th></tr>
+    </thead>
+    <tbody id="scheduleBody"></tbody>
+  </table>
+</main>
+
+<footer>
+  <a id="canvasFooterLink" href="#" target="_top">Return to Canvas</a>
+</footer>
+
+<script>
+  const { course, schedule, pages } = CONFIG;
+  document.getElementById('courseCode').textContent = `${course.code} · ${course.semester}`;
+
+  const weeks = schedule.weeks;
+  const today = new Date();
+
+  const fmt = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+  document.getElementById('scheduleBody').innerHTML = weeks.map((w, i) => {
+    const start = w.weekStart;
+    const nextStart = weeks[i + 1] ? weeks[i + 1].weekStart : null;
+    const isCurrent = nextStart ? (today >= start && today < nextStart) : (today >= start);
+    return `
+      <tr class="${isCurrent ? 'current-week' : ''}">
+        <td>${w.label}</td>
+        <td>${fmt(start)}${nextStart ? ' – ' + fmt(new Date(nextStart - 86400000)) : ''}</td>
+        <td>${w.topic}</td>
+      </tr>
+    `;
+  }).join('');
+
+  document.getElementById('canvasFooterLink').href = pages.canvasHome;
+</script>
+
+</body>
+</html>
