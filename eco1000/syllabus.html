@@ -3,8 +3,9 @@
 ================================================================
   ECO 1000 — SYLLABUS
   Hosted: www.brandonsheridan.com/courses/eco1000/syllabus.html
-  Grading weights pull from config.js GRADING — edit there, not here.
-  Policy text below is placeholder — UPDATE with your actual syllabus language.
+  Grading weights, exam dates, and policy text pull from config.js
+  (GRADING, EXAMS, POLICIES) — edit there, not here.
+  Source: eco1000_syllabus.tex
 ================================================================
 -->
 <html lang="en">
@@ -17,11 +18,22 @@
   <style>
     .policy { background: var(--white); border-radius: var(--radius-card); box-shadow: var(--shadow); padding: 1.5rem 1.75rem; margin-bottom: 1.5rem; }
     .policy h2 { font-size: 1rem; color: var(--primary); margin-bottom: 0.75rem; }
-    .policy p { font-size: 0.9rem; line-height: 1.7; color: var(--text); font-weight: 300; }
+    .policy h3 { font-size: 0.85rem; color: var(--primary); margin: 1rem 0 0.35rem; }
+    .policy p, .policy li { font-size: 0.9rem; line-height: 1.7; color: var(--text); font-weight: 300; }
+    .policy ul { margin-left: 1.25rem; margin-bottom: 0.5rem; }
     .grade-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
-    .grade-table td { padding: 0.5rem 0; font-size: 0.9rem; border-bottom: 1px solid var(--warm-gray); }
-    .grade-table td:last-child { text-align: right; font-weight: 600; color: var(--primary); }
-    .placeholder { color: var(--muted); font-style: italic; }
+    .grade-table td { padding: 0.55rem 0; font-size: 0.9rem; border-bottom: 1px solid var(--warm-gray); vertical-align: top; }
+    .grade-table td.label { font-weight: 500; width: 42%; }
+    .grade-table td.weight { text-align: right; font-weight: 600; color: var(--primary); width: 12%; white-space: nowrap; }
+    .grade-table td.note { color: var(--muted); font-size: 0.82rem; }
+    .grade-scale { font-size: 0.82rem; color: var(--muted); margin-top: 0.75rem; }
+    .exam-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.5rem 0; border-bottom: 1px solid var(--warm-gray); flex-wrap: wrap; gap: 0.25rem; }
+    .exam-row:last-child { border-bottom: none; }
+    .exam-label { font-weight: 600; color: var(--primary); font-size: 0.9rem; }
+    .exam-date { font-size: 0.85rem; color: var(--text); }
+    .exam-note { font-size: 0.78rem; color: var(--muted); width: 100%; }
+    .exam-tbd { color: #a13c1c; font-style: italic; }
+    .meeting-line { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.25rem; }
   </style>
 </head>
 <body>
@@ -36,25 +48,54 @@
     </a>
     <p class="course-code" id="courseCode"></p>
     <h1>Syllabus</h1>
+    <p class="header-meta" id="meetingLine"></p>
   </div>
 </header>
 
 <main id="main">
+
   <div class="policy">
-    <h2>Grading Breakdown</h2>
-    <table class="grade-table" id="gradeTable"></table>
+    <h2>Course Goals</h2>
+    <ul id="goalsList"></ul>
   </div>
 
   <div class="policy">
-    <h2>Course Policies</h2>
-    <p class="placeholder">UPDATE — paste your attendance, late work, and academic
-      integrity policies here.</p>
+    <h2>Course Materials</h2>
+    <p id="materialsText"></p>
+  </div>
+
+  <div class="policy">
+    <h2>Grading Breakdown</h2>
+    <table class="grade-table" id="gradeTable"></table>
+    <p class="grade-scale" id="gradeScale"></p>
+  </div>
+
+  <div class="policy">
+    <h2>Exams</h2>
+    <p id="examPolicyText"></p>
+    <div id="examList" style="margin-top: 0.75rem;"></div>
+  </div>
+
+  <div class="policy">
+    <h2>AI Policy</h2>
+    <p id="aiPolicyText"></p>
+  </div>
+
+  <div class="policy">
+    <h2>Classroom Expectations</h2>
+    <div id="classroomList"></div>
+  </div>
+
+  <div class="policy">
+    <h2>Support &amp; Policies</h2>
+    <div id="supportList"></div>
   </div>
 
   <div class="policy">
     <h2>Contact</h2>
-    <p id="contactLine" class="placeholder"></p>
+    <p id="contactLine"></p>
   </div>
+
 </main>
 
 <footer>
@@ -62,17 +103,54 @@
 </footer>
 
 <script>
-  const { course, instructor, grading, pages } = CONFIG;
+  const { course, instructor, grading, exams, policies, pages } = CONFIG;
+
   document.getElementById('courseCode').textContent = `${course.code} · ${course.semester}`;
+  document.getElementById('meetingLine').textContent = `${course.meeting} · ${course.credits} credits`;
+
+  document.getElementById('goalsList').innerHTML =
+    policies.goals.map(g => `<li>${g}</li>`).join('');
+
+  document.getElementById('materialsText').innerHTML = policies.materials;
 
   document.getElementById('gradeTable').innerHTML = grading.components.map(c => `
-    <tr><td>${c.label}</td><td>${c.weight}%</td></tr>
+    <tr>
+      <td class="label">${c.label}</td>
+      <td class="weight">${c.weight}%</td>
+    </tr>
+    <tr><td colspan="2" class="note" style="padding-top:0;">${c.note}</td></tr>
+  `).join('');
+  document.getElementById('gradeScale').textContent = grading.scale;
+
+  document.getElementById('examPolicyText').textContent = exams.policy;
+  const examRows = [exams.exam1, exams.exam2, exams.final].map(e => `
+    <div class="exam-row">
+      <span class="exam-label">${e.label}</span>
+      <span class="exam-date ${e.date === 'TBD' ? 'exam-tbd' : ''}">${e.date}${e.time ? ' · ' + e.time : ''}</span>
+      <span class="exam-note">${e.note}</span>
+    </div>
+  `).join('');
+  document.getElementById('examList').innerHTML = examRows;
+
+  document.getElementById('aiPolicyText').innerHTML = policies.aiPolicy;
+
+  document.getElementById('classroomList').innerHTML = policies.classroom.map(c => `
+    <h3>${c.title}</h3><p>${c.body}</p>
   `).join('');
 
-  const contact = [instructor.name, instructor.email, instructor.officeHours]
-    .filter(Boolean).join(' · ');
-  document.getElementById('contactLine').textContent =
-    contact || 'UPDATE — instructor contact details in config.js';
+  document.getElementById('supportList').innerHTML = policies.support.map(s => `
+    <h3>${s.title}</h3><p>${s.body}</p>
+  `).join('');
+
+  const contact = [
+    instructor.name,
+    instructor.email ? `<a href="mailto:${instructor.email}">${instructor.email}</a>` : null,
+    instructor.phone,
+    instructor.office,
+    instructor.officeHours,
+    instructor.zoomUrl ? `<a href="${instructor.zoomUrl}" target="_top">Zoom</a>` : null,
+  ].filter(Boolean).join(' · ');
+  document.getElementById('contactLine').innerHTML = contact;
 
   document.getElementById('canvasFooterLink').href = pages.canvasHome;
 </script>

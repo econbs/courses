@@ -14,6 +14,25 @@
   <title>Weekly Schedule · ECO 1000</title>
   <link rel="stylesheet" href="https://www.brandonsheridan.com/courses/shared/brand.css">
   <script src="config.js"></script>
+  <style>
+    .week-card {
+      background: var(--white); border-radius: var(--radius-card); box-shadow: var(--shadow);
+      padding: 1.25rem 1.5rem; margin-bottom: 1rem; border-left: 4px solid var(--accent);
+    }
+    .week-card.current-week { border-left-color: var(--primary); background: var(--smoke); }
+    .week-head { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .week-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); }
+    .week-dates { font-size: 0.78rem; color: var(--muted); }
+    .week-current-badge {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--primary); color: var(--white); padding: 0.15rem 0.55rem; border-radius: 4px;
+    }
+    .week-topic { font-size: 0.95rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+    .week-assignments { font-size: 0.83rem; color: var(--muted); margin: 0.25rem 0 0 1.1rem; }
+    .week-assignments li { margin-bottom: 0.15rem; }
+    .week-note { font-size: 0.8rem; color: var(--accent-link); margin-top: 0.5rem; }
+    .week-exam { font-size: 0.8rem; font-weight: 600; color: #a13c1c; margin-top: 0.5rem; }
+  </style>
 </head>
 <body>
 
@@ -31,12 +50,7 @@
 </header>
 
 <main id="main">
-  <table class="schedule" id="scheduleTable">
-    <thead>
-      <tr><th>Week</th><th>Dates</th><th>Topic</th></tr>
-    </thead>
-    <tbody id="scheduleBody"></tbody>
-  </table>
+  <div id="scheduleList"></div>
 </main>
 
 <footer>
@@ -50,18 +64,25 @@
   const weeks = schedule.weeks;
   const today = new Date();
 
-  const fmt = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-
-  document.getElementById('scheduleBody').innerHTML = weeks.map((w, i) => {
+  document.getElementById('scheduleList').innerHTML = weeks.map((w, i) => {
     const start = w.weekStart;
     const nextStart = weeks[i + 1] ? weeks[i + 1].weekStart : null;
     const isCurrent = nextStart ? (today >= start && today < nextStart) : (today >= start);
+    const assignments = (w.assignments && w.assignments.length)
+      ? `<ul class="week-assignments">${w.assignments.map(a => `<li>${a}</li>`).join('')}</ul>`
+      : '';
     return `
-      <tr class="${isCurrent ? 'current-week' : ''}">
-        <td>${w.label}</td>
-        <td>${fmt(start)}${nextStart ? ' – ' + fmt(new Date(nextStart - 86400000)) : ''}</td>
-        <td>${w.topic}</td>
-      </tr>
+      <div class="week-card ${isCurrent ? 'current-week' : ''}">
+        <div class="week-head">
+          <span class="week-num">${w.label}</span>
+          <span class="week-dates">${w.dateRange}</span>
+          ${isCurrent ? '<span class="week-current-badge">This Week</span>' : ''}
+        </div>
+        <div class="week-topic">${w.topic}</div>
+        ${assignments}
+        ${w.note ? `<div class="week-note">${w.note}</div>` : ''}
+        ${w.examNote ? `<div class="week-exam">⚠ ${w.examNote}</div>` : ''}
+      </div>
     `;
   }).join('');
 
