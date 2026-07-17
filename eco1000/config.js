@@ -20,6 +20,7 @@
 const COURSE = {
   code:        "ECO 1000",
   title:       "Principles of Economics",
+  department:  "Economics, Love School of Business",
   semester:    "Fall 2026",                        // UPDATE each semester
   format:      "in-person",
   meeting:     "Sankey 104 · Tu/Th 10:30 AM – 12:10 PM",  // UPDATE
@@ -69,9 +70,10 @@ const EXAMS = {
 // ================================================================
 const SCHEDULE = {
   dates: {
-    classesBegin: "August 25, 2026",
-    classesEnd:   "December 3, 2026",
-    finalsWeek:   "December 8–12, 2026",
+    classesBegin:     "August 25, 2026",
+    classesEnd:       "December 3, 2026",
+    finalsWeek:       "December 8–12, 2026",
+    withdrawDeadline: "Friday, October 30, 2026",
   },
 
   weeks: [
@@ -143,6 +145,17 @@ const SCHEDULE = {
 };
 
 // ================================================================
+//  TEXTBOOK
+// ================================================================
+const TEXTBOOK = {
+  authors:   "Betsey Stevenson and Justin Wolfers",
+  title:     "Principles of Economics",
+  edition:   "2nd",
+  publisher: "Cengage Learning (Achieve)",
+  isbn:      "9781319449995",
+};
+
+// ================================================================
 //  GRADING
 //  Weights sum to 100 — locked from the syllabus. UPDATE only if the
 //  grading structure itself changes.
@@ -172,32 +185,68 @@ const GRADING = {
 //  UPDATE if language changes semester to semester.
 // ================================================================
 const POLICIES = {
+  teachingPhilosophy:
+    "I believe that teaching is fun and look forward to interacting with each of you throughout the " +
+    "semester about economics and any other concerns you may have. I strongly believe that " +
+    "&ldquo;learning by doing&rdquo; is the best way for students to learn, so class time will be a " +
+    "mixture of lecture and active learning. Some people (maybe even you!) have preconceived notions " +
+    "that economics is boring &mdash; better known as the &ldquo;dismal science.&rdquo; I intend to " +
+    "prove otherwise by going beyond simple lectures of the material and showing how economics can be " +
+    "applied to everyday life. The goal of this class is not only to teach you specific concepts and " +
+    "techniques, but also to teach you to <strong>think critically</strong>. This is a vital skill to " +
+    "have as you venture through life.",
+
   goals: [
     "Learn how people, businesses, and governments make decisions in the context of limited resources.",
     "Understand how markets work (and, sometimes, don't work) using a supply and demand framework.",
     "Understand how and why trade occurs, as well as how it affects our lives.",
     "Learn how to quantify the health of the economy (e.g., GDP, unemployment rate, inflation), what causes economic ups and downs, and how policy can promote growth.",
   ],
+
   materials: "Readings come from a variety of sources, but the main thing you need is access to " +
-    "<strong>Achieve</strong>, an online learning platform that includes the e-textbook " +
-    "(<em>Principles of Economics</em>, 2nd edition, Stevenson & Wolfers, ISBN 9781319449995) and the " +
-    "online homework system. This course participates in Elon's “First Day” program, so Achieve " +
-    "access is billed automatically through the Bursar's Office. Access it through Canvas.",
+    "<strong>Achieve</strong>, an online learning platform that includes the e-textbook and the online " +
+    "homework system. This course participates in Elon's &ldquo;First Day&rdquo; program, so Achieve " +
+    "access is billed automatically through the Bursar's Office. Access it through Canvas, along with " +
+    "your grades — check both, plus your Elon email, regularly for course updates.",
+
   aiPolicy: "Generative AI may be used to support your learning — e.g. quizzing yourself over course " +
     "material, asking AI to explain or clarify a concept, or using it as instructed for a class activity. " +
     "Achieve's built-in AI tools are fine to use. Using AI to bypass learning is not: submitting AI-generated " +
     "work as your own, or using AI during exams/assessments when prohibited, are Elon Honor Code violations. " +
     "When in doubt, ask.",
+
   classroom: [
     { title: "Be Prepared", body: "Attend class and skim the reading beforehand. Jot down a few notes or questions as you read. There's no such thing as a stupid question in class — and drop-in hours or email work too." },
     { title: "Be Courteous", body: "Be a kind human, and show up on time — a large part of this course is built on teamwork, and class starts promptly." },
-    { title: "Device Policy", body: "No laptops for note-taking; phones off the desk. Tablets are fine only if lying flat, note-taking app only. There is dedicated time for device use during group activities and breaks." },
   ],
+
+  devicePolicy: "You cannot use laptops for note-taking and your phone should not be on your desk during " +
+    "class time. A tablet is fine only if it lies flat on the desk with just a note-taking app open. We " +
+    "have dedicated time for device use, including group activities and periodic breaks. Failure to " +
+    "comply reduces your attendance and participation grade and may result in an Honor Code violation.",
+
+  // Section 8 — course-specific policies (this instructor's own language)
   support: [
     { title: "Disabilities Resources", body: "Students requesting accommodations under the ADA should register with Disabilities Resources (KLC/Belk Library, Suite 226, 336-278-6568, disabilities@elon.edu). Already registered? Renew each semester via the Accommodate site." },
     { title: "Religious Holidays", body: "Complete the online Religious Observance Notification Form (RONF) within the first two weeks of the semester to arrange an excused absence for a conflicting holiday." },
     { title: "Care and Support", body: "If you're concerned about a classmate's well-being, share it with the instructor or directly with Elon's Student Care and Outreach program." },
     { title: "Honor Code", body: "Cheating will not be tolerated. See Elon's Honor Code policy." },
+  ],
+
+  // Section 9 — official Elon-wide boilerplate, same for every Elon syllabus
+  campusResources: [
+    { title: "Honor Code", body: "Elon's honor pledge calls for a commitment to Elon's shared values of Honesty, Integrity, Responsibility, and Respect. Review the <a href=\"https://www.elon.edu/u/student-conduct/honor-code/\" target=\"_blank\" rel=\"noopener\">policies described in the student handbook</a>. Violations in academic-related areas will be documented in an incident report maintained in the Office of Student Conduct and may result in a lowering of the course grade and/or failure of the course with an Honor Code F." },
+    { title: "Office of Academic Accommodations and Accessibility", body: "Elon is committed to providing an inclusive experience and equal opportunity to students with disabilities in accordance with the ADA and Section 504. Contact AAA at 336.278.6568 or <a href=\"mailto:accommodations@elon.edu\">accommodations@elon.edu</a>. Accommodations can be requested at any time but are not retroactive. See the <a href=\"https://www.elon.edu/u/academics/koenigsberger-learning-center/academic-accommodations-accessibility/\" target=\"_blank\" rel=\"noopener\">AAA website</a>." },
+    { title: "Learning Assistance", body: "The Koenigsberger Learning Center offers tutoring, success coaching, and other academic support. Visit the <a href=\"https://www.elon.edu/u/academics/koenigsberger-learning-center/learning-assistance/\" target=\"_blank\" rel=\"noopener\">Learning Assistance website</a> or email <a href=\"mailto:learningassistance@elon.edu\">learningassistance@elon.edu</a>." },
+    { title: "Belk Library", body: "Librarians help students find resources for course assignments. <a href=\"https://elon.libcal.com/appointments/\" target=\"_blank\" rel=\"noopener\">Schedule an appointment</a> or chat with a librarian on the <a href=\"https://www.elon.edu/library/\" target=\"_blank\" rel=\"noopener\">library website</a>." },
+    { title: "The Writing Center", body: "Located on the first floor of Belk Library, the <a href=\"https://www.elon.edu/u/academics/writing-excellence/the-writing-center/\" target=\"_blank\" rel=\"noopener\">Writing Center</a> is staffed by trained undergraduate consultants who work with students on any kind of writing at any stage." },
+    { title: "Religious Holidays", body: "Elon has a <a href=\"https://www.elon.edu/u/truitt-center/multifaith-religious-holidays/holiday-observance-policy/\" target=\"_blank\" rel=\"noopener\">policy and procedures</a> for observing religious holidays that conflict with the academic calendar. Complete the online Religious Observance Notification Form (RONF) by the date published each semester, and make prior arrangements with the instructor." },
+    { title: "Enrollment", body: "Confirm your enrollment through OnTrack. If you do not appear on the course roll, consult your instructor immediately." },
+    { title: "Dropping a Course", body: "Courses may be dropped during the designated drop/add period through OnTrack; a dropped course will not appear on the transcript." },
+    { title: "Withdrawing from a Course", body: "After drop/add, students may <a href=\"https://www.elon.edu/u/registrar/student-resources/individual-course-withdrawal/\" target=\"_blank\" rel=\"noopener\">withdraw from a course</a> without penalty before the published withdrawal deadline, via OnTrack, resulting in a &ldquo;W&rdquo; on the transcript. Do not assume you will be withdrawn automatically for non-attendance." },
+    { title: "E-Warnings", body: "E-Warnings communicate with students and advisors when concerns arise about academic performance. Advisors are copied on every e-warning; this is a standard process, not a personal judgment." },
+    { title: "Student Care & Outreach", body: "Concerned about a classmate's well-being? Share concerns through Elon's <a href=\"https://www.elon.edu/u/administration/student-life/dean-of-students/student-concerns-outreach/when-to-share-concerns/\" target=\"_blank\" rel=\"noopener\">Share a Concern</a> site, or see the <a href=\"https://www.elon.edu/u/administration/student-life/dean-of-students/student-concerns-outreach/resources/\" target=\"_blank\" rel=\"noopener\">Student Care and Outreach website</a>." },
+    { title: "Substance Use", body: "Elon offers confidential, nonjudgmental, recovery-affirming support for students seeking to change their use of alcohol, cannabis, opioids, or other substances, including the Phoenix Free collegiate recovery program. Medical emergency? Call 911. See the <a href=\"https://www.elon.edu/u/health-promotion/substance-education/collegiate-recovery/\" target=\"_blank\" rel=\"noopener\">Collegiate Recovery webpage</a> or email <a href=\"mailto:phoenixfree@elon.edu\">phoenixfree@elon.edu</a>." },
   ],
 };
 
@@ -229,6 +278,7 @@ const CONFIG = {
   instructor: INSTRUCTOR,
   exams:      EXAMS,
   schedule:   SCHEDULE,
+  textbook:   TEXTBOOK,
   grading:    GRADING,
   policies:   POLICIES,
   features:   FEATURES,
