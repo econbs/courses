@@ -57,9 +57,9 @@ const EXAMS = {
   exam1: { label: "Exam 1", date: "Thursday, September 24, 2026",
     note: "Calculator allowed; no phones." },
   exam2: { label: "Exam 2", date: "Thursday, October 29, 2026",
-    note: "Calculator allowed; no phones. Bonus: wear an econ-themed Halloween costume for +1 pt." },
+    note: "Calculator allowed; no phones." },
   final: { label: "Final Exam", date: "TBD", time: "TBD",
-    note: "Elon has not yet posted the final exam schedule for this section — UPDATE once posted." },
+    note: "Calculator allowed; no phones. Elon has not yet posted the final exam schedule for this section — UPDATE once posted." },
 };
 
 // ================================================================
