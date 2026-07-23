@@ -267,6 +267,7 @@ const PAGES = {
   home:        `${COURSE.baseUrl}/index.html`,
   canvasHome:  `${COURSE.canvasBase}/courses/${COURSE.canvasId}`,
   syllabus:    `${COURSE.baseUrl}/syllabus.html`,
+  syllabusPdf: `${COURSE.baseUrl}/eco1000-syllabus.pdf`,  // UPDATE filename if regenerated with a different name
   checklist:   `${COURSE.baseUrl}/checklist.html`,
 };
 
